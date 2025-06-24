@@ -1,0 +1,44 @@
+.history {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 10px;
+  max-height: 400px;
+  overflow-y: auto;
+  min-width: 250px;
+}
+
+.history h3 {
+  margin-top: 0;
+  color: #fff;
+}
+
+.history ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.history li {
+  margin-bottom: 8px;
+}
+
+.history button {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 5px 10px;
+  width: 100%;
+  text-align: left;
+  border-radius: 3px;
+  transition: background-color 0.2s;
+}
+
+.history button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.history button.current-move {
+  background-color: rgba(255, 255, 255, 0.2);
+  font-weight: bold;
+}

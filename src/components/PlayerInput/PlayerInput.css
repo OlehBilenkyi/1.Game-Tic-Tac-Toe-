@@ -1,0 +1,54 @@
+.player-input {
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.player-input h2 {
+  margin-top: 0;
+  color: #fff;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #fff;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.ai-toggle {
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.ai-toggle label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.start-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.start-btn:hover {
+  background-color: #45a049;
+}
