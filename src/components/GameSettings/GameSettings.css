@@ -1,29 +1,57 @@
 .game-settings {
-  background-color: rgba(255, 255, 255, 0.1);
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 20px;
+  background-color: white;
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+}
+
+.app.dark .game-settings {
+  background-color: #1e1e1e;
+}
+
+.app.retro .game-settings {
+  background-color: #e8d5b5;
 }
 
 .game-settings h2 {
-  margin-top: 0;
-  color: #fff;
+  margin-bottom: 1.5rem;
+  color: var(--primary);
+  text-align: center;
 }
 
 .setting-group {
-  margin-bottom: 15px;
+  margin-bottom: 1.5rem;
 }
 
 .setting-group label {
   display: block;
-  margin-bottom: 5px;
-  color: #fff;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--gray);
 }
 
 .setting-group select {
   width: 100%;
-  padding: 8px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+  padding: 0.8rem 1rem;
+  border-radius: var(--border-radius);
+  border: 2px solid #ddd;
+  font-size: 1rem;
   background-color: white;
+  transition: var(--transition);
+}
+
+.setting-group select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.app.dark .setting-group select {
+  background-color: #333;
+  border-color: #444;
+  color: #f0f0f0;
+}
+
+.app.retro .setting-group select {
+  background-color: #f0e6d2;
+  border-color: var(--primary);
 }

@@ -1,18 +1,35 @@
 .theme-selector {
-  margin-bottom: 20px;
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 10px;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
 }
 
 .theme-selector label {
-  color: #fff;
+  font-weight: 600;
+  color: var(--gray);
 }
 
 .theme-selector select {
-  padding: 8px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  background-color: white;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  border: 2px solid var(--gray);
+  background-color: transparent;
+  color: inherit;
+  font-weight: 500;
+}
+
+.theme-selector select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.app.dark .theme-selector select {
+  border-color: #555;
+  background-color: #333;
+}
+
+.app.retro .theme-selector select {
+  border-color: var(--primary);
 }

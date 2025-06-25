@@ -1,44 +1,62 @@
 .history {
-  background-color: rgba(255, 255, 255, 0.1);
-  padding: 20px;
-  border-radius: 10px;
-  max-height: 400px;
-  overflow-y: auto;
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
   min-width: 250px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.app.dark .history {
+  background-color: #1e1e1e;
+}
+
+.app.retro .history {
+  background-color: #e8d5b5;
 }
 
 .history h3 {
-  margin-top: 0;
-  color: #fff;
+  margin-bottom: 1rem;
+  color: var(--primary);
+  text-align: center;
 }
 
 .history ul {
   list-style: none;
-  padding: 0;
-  margin: 0;
 }
 
 .history li {
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
 }
 
 .history button {
-  background: none;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-  padding: 5px 10px;
   width: 100%;
+  padding: 0.6rem 1rem;
+  background-color: transparent;
+  border: 1px solid #ddd;
+  border-radius: 8px;
   text-align: left;
-  border-radius: 3px;
-  transition: background-color 0.2s;
+  font-size: 0.9rem;
+  color: var(--gray);
 }
 
 .history button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(67, 97, 238, 0.1);
+  border-color: var(--primary);
 }
 
 .history button.current-move {
-  background-color: rgba(255, 255, 255, 0.2);
-  font-weight: bold;
+  background-color: rgba(67, 97, 238, 0.2);
+  border-color: var(--primary);
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.app.dark .history button {
+  border-color: #444;
+}
+
+.app.dark .history button:hover {
+  background-color: rgba(67, 97, 238, 0.2);
 }
