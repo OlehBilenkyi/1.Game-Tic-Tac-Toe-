@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import "./GameBoard.css";
 
 const GameBoard = ({
@@ -11,6 +12,10 @@ const GameBoard = ({
   setHistory,
   currentMove,
   setCurrentMove,
+  socket,
+  roomId,
+  isHost,
+  isMultiplayer,
 }) => {
   const [board, setBoard] = useState(Array(boardSize * boardSize).fill(null));
   const [winner, setWinner] = useState(null);
@@ -39,30 +44,61 @@ const GameBoard = ({
   }, [currentMove]);
 
   const handleClick = (index) => {
+    // Условие запрета хода в мультиплеере:
     if (
       board[index] ||
       winner ||
       !gameActive ||
-      (players[currentPlayer].isAI && currentMove % 2 === 1)
+      (isMultiplayer && ((currentPlayer === "X" && !isHost) || (currentPlayer === "O" && isHost)))
     ) {
       return;
     }
 
-    const newBoard = [...board];
-    newBoard[index] = currentPlayer;
-    setBoard(newBoard);
+    if (isMultiplayer) {
+      socket.emit("makeMove", {
+        roomId,
+        cellIndex: index,
+        player: currentPlayer,
+      });
+    } else {
+      // Локальная логика хода
+      const newBoard = [...board];
+      newBoard[index] = currentPlayer;
+      setBoard(newBoard);
 
-    const newHistory = history.slice(0, currentMove);
-    newHistory.push({
-      board: [...newBoard],
-      move: index,
-      player: currentPlayer,
-    });
-    setHistory(newHistory);
-    setCurrentMove(currentMove + 1);
+      const newHistory = history.slice(0, currentMove);
+      newHistory.push({
+        board: [...newBoard],
+        move: index,
+        player: currentPlayer,
+      });
+      setHistory(newHistory);
+      setCurrentMove(currentMove + 1);
 
-    checkWinner(newBoard, currentPlayer);
+      checkWinner(newBoard, currentPlayer);
+    }
   };
+
+  // Обработка ходов от других игроков в мультиплеере
+  useEffect(() => {
+    if (!socket || !isMultiplayer) return;
+
+    const handleMoveMade = (gameState) => {
+      setBoard(gameState.board);
+      setCurrentMove((prev) => prev + 1);
+
+      // Проверяем победителя для противоположного игрока,
+      // так как ход уже сделан
+      const nextPlayer = currentPlayer === "X" ? "O" : "X";
+      checkWinner(gameState.board, nextPlayer);
+    };
+
+    socket.on("moveMade", handleMoveMade);
+
+    return () => {
+      socket.off("moveMade", handleMoveMade);
+    };
+  }, [socket, isMultiplayer, currentPlayer]);
 
   const checkWinner = (board, player) => {
     const lines = getAllLines(boardSize, winLength);
@@ -143,6 +179,23 @@ const GameBoard = ({
       </div>
     </div>
   );
+};
+
+GameBoard.propTypes = {
+  boardSize: PropTypes.number.isRequired,
+  winLength: PropTypes.number.isRequired,
+  players: PropTypes.object.isRequired,
+  gameActive: PropTypes.bool.isRequired,
+  updateScore: PropTypes.func.isRequired,
+  history: PropTypes.array.isRequired,
+  setHistory: PropTypes.func.isRequired,
+  currentMove: PropTypes.number.isRequired,
+  setCurrentMove: PropTypes.func.isRequired,
+
+  socket: PropTypes.object,
+  roomId: PropTypes.string,
+  isHost: PropTypes.bool,
+  isMultiplayer: PropTypes.bool,
 };
 
 const getAllLines = (size, length) => {
